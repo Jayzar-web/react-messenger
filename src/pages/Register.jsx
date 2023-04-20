@@ -7,11 +7,12 @@ import {
 import { auth, storage, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FiPaperclip } from "react-icons/fi";
 import { Line } from "rc-progress";
 import { v4 as uuid } from "uuid";
 import Menu from "../components/Menu";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Register = () => {
   const [error, setError] = useState(null);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   fetchSignInMethodsForEmail,
@@ -7,10 +7,12 @@ import {
 import { auth } from "../firebase";
 import logo from "../../public/Logo_without_back.svg";
 import Menu from "../components/Menu";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;

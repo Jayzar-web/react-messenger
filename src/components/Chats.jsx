@@ -8,7 +8,7 @@ const Chats = () => {
   const [chats, setChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
-  const { data, dispatch } = useContext(ChatContext);
+  const { dispatch } = useContext(ChatContext);
 
   useEffect(() => {
     const getChats = () => {
@@ -54,7 +54,7 @@ const Chats = () => {
                   {chat[1].lastMessage?.text}
                 </p>
               </div>
-              <p className={"lastMessageTime"}>{""}</p>
+              {/*<p className={"lastMessageTime"}></p>*/}
             </div>
           </div>
         ))}
