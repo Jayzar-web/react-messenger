@@ -7,14 +7,22 @@ import {
 import { auth, storage, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { FiPaperclip } from "react-icons/fi";
 import { Line } from "rc-progress";
 import { v4 as uuid } from "uuid";
 import Menu from "../components/Menu";
-import { AuthContext } from "../contexts/AuthContext";
 
 const Register = () => {
+  const errors = {
+    wrongName:
+      "Имя должно состоять из латинских букв, цифр и знака подчеркивания",
+    wrongPassword: "Пароль должен быть не менее 6 символов",
+    wrongFile: "Загрузите аватар",
+    wrongEmail: "Пользователь с такой почтой уже существует",
+    wrongUser: "Не удалось создать пользователя",
+    wrongFileUpload: "Не удалось загрузить файл",
+  };
   const [error, setError] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -31,9 +39,7 @@ const Register = () => {
 
     // Проверка имени
     if (!regex.test(displayName)) {
-      setError(
-        "Имя должно состоять из латинских букв, цифр и знака подчеркивания"
-      );
+      setError(errors.wrongName);
       setTimeout(() => {
         setError(null);
       }, 5000);
@@ -42,7 +48,7 @@ const Register = () => {
 
     // Проверка длины пароля
     if (password.length < 6) {
-      setError("Пароль должен быть не менее 6 символов");
+      setError(errors.wrongPassword);
       setTimeout(() => {
         setError(null);
       }, 5000);
@@ -51,7 +57,7 @@ const Register = () => {
 
     // Проверка наличия файла
     if (!file || !file.size) {
-      setError("Загрузите аватар");
+      setError(errors.wrongFile);
       setTimeout(() => {
         setError(null);
       }, 5000);
@@ -61,7 +67,7 @@ const Register = () => {
     // Проверка почты
     const method = await fetchSignInMethodsForEmail(auth, email);
     if (method.length) {
-      setError("Пользователь с такой почтой уже существует");
+      setError(errors.wrongEmail);
       setTimeout(() => {
         setError(null);
       }, 5000);
@@ -82,7 +88,7 @@ const Register = () => {
           );
         },
         () => {
-          setError("Не удалось загрузить файл");
+          setError(errors.wrongFileUpload);
           setTimeout(() => {
             setError(null);
           }, 5000);
@@ -106,7 +112,7 @@ const Register = () => {
         }
       );
     } catch (error) {
-      setError("Не удалось создать пользователя");
+      setError(errors.wrongUser);
       setTimeout(() => {
         setError(null);
       }, 5000);

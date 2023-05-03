@@ -1,15 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  fetchSignInMethodsForEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import logo from "../../public/Logo_without_back.svg";
 import Menu from "../components/Menu";
-import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+  const errors = {
+    wrongData: "Введены неправильные учетные данные.",
+  };
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -22,7 +20,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error) {
-      setError("Введены неправильные учетные данные.");
+      setError(errors.wrongData);
       setTimeout(() => {
         setError(null);
       }, 5000);

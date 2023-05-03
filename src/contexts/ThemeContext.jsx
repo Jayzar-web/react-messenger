@@ -9,7 +9,6 @@ const getInitialTheme = () => {
       return storedPrefs;
     }
   }
-
   return "light";
 };
 

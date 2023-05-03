@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_KEY,
   authDomain: "flux-messenger-58c3e.firebaseapp.com",
   projectId: "flux-messenger-58c3e",
   storageBucket: "flux-messenger-58c3e.appspot.com",

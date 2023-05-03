@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { AuthContext } from "../contexts/AuthContext";
-import logo from "/Logo_without_back.svg";
+import logo from "../assets/Logo_without_back.svg";
 
 const Menu = () => {
   const { theme, setTheme } = useContext(ThemeContext);
