@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import Menu from "../components/Menu";
 
 const Login = () => {
   const errors = {
@@ -30,10 +29,9 @@ const Login = () => {
   return (
     <div
       className={
-        "bg-light dark:bg-dark text-lightText dark:text-darkText font-bold h-screen w-screen flex flex-col items-center"
+        "bg-light dark:bg-dark text-lightText dark:text-darkText font-bold h-[calc(100vh-70px)] w-screen flex flex-col items-center"
       }
     >
-      <Menu />
       <div
         className={
           "flex rounded-[10px] w-96 h-80 bg-blue-50 flex-col justify-center items-center translate-y-1/2 shadow-2xl"

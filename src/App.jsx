@@ -4,6 +4,7 @@ import { AuthContext } from "./contexts/AuthContext";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Menu from "./components/Menu";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -16,10 +17,10 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App overflow-hidden">
       <BrowserRouter>
         <Routes>
-          <Route path={"/"}>
+          <Route path={"/"} element={<Menu />}>
             <Route
               index
               element={

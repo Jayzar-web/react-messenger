@@ -11,7 +11,6 @@ import { useState } from "react";
 import { FiPaperclip } from "react-icons/fi";
 import { Line } from "rc-progress";
 import { v4 as uuid } from "uuid";
-import Menu from "../components/Menu";
 
 const Register = () => {
   const errors = {
@@ -122,11 +121,9 @@ const Register = () => {
   return (
     <div
       className={
-        "bg-light dark:bg-dark text-lightText dark:text-darkText h-screen w-screen flex items-center flex-col font-bold relative"
+        "bg-light dark:bg-dark text-lightText dark:text-darkText h-[calc(100vh-70px)] w-screen flex items-center flex-col font-bold relative"
       }
     >
-      <Menu />
-
       {uploadProgress > 0 && (
         <Line
           percent={uploadProgress}
@@ -134,7 +131,7 @@ const Register = () => {
           strokeLinecap={"square"}
           strokeColor={"#314461"}
           trailColor={"#bbdefb"}
-          className={"w-full absolute top-[70px]"}
+          className={"w-full"}
         />
       )}
 
