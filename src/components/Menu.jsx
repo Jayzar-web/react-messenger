@@ -1,10 +1,11 @@
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
+import { Outlet } from "react-router-dom";
 import Profile from "./Profile";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { AuthContext } from "../contexts/AuthContext";
-import logo from "../assets/Logo_without_back.svg";
-import { Outlet } from "react-router-dom";
+import logoLight from "../assets/menuLight.svg";
+import logoDark from "../assets/menuDark.svg";
 
 const Menu = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -19,14 +20,18 @@ const Menu = () => {
   return (
     <>
       <div
-        className={`bg-light text-lightText dark:bg-dark dark:text-darkText font-bold border-lightBorders dark:border-darkBorders 
-        w-full h-[70px] border-b-[1px] flex justify-between items-center px-3`}
+        className={`flex h-[70px] w-full items-center justify-between border-b-[1px] border-lightBorders 
+        bg-light px-3 font-bold text-lightText dark:border-darkBorders dark:bg-dark dark:text-darkText`}
       >
         <div>
-          <img src={logo} alt={"logo"} className={"w-[150px]"} />
+          <img
+            src={theme === "light" ? logoLight : logoDark}
+            alt={"logo"}
+            className={"w-[200px]"}
+          />
         </div>
         <div className={"flex items-center gap-4"}>
-          <label className={"cursor-pointer select-none active:scale-95 z-40"}>
+          <label className={"z-40 cursor-pointer select-none active:scale-95"}>
             <input
               checked={isDark()}
               onChange={handleChange}
@@ -34,9 +39,9 @@ const Menu = () => {
               className={"hidden"}
             />
             {isDark() ? (
-              <BsFillSunFill className={"w-6 h-6"} />
+              <BsFillSunFill className={"h-6 w-6"} />
             ) : (
-              <BsFillMoonFill className={"w-5 h-5"} />
+              <BsFillMoonFill className={"h-5 w-5"} />
             )}
           </label>
           {currentUser && <Profile />}
