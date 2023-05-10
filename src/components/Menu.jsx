@@ -1,7 +1,7 @@
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { Outlet } from "react-router-dom";
-import Profile from "./Profile";
 import { useContext } from "react";
+import Profile from "./Profile";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { AuthContext } from "../contexts/AuthContext";
 import logoLight from "../assets/menuLight.svg";
@@ -44,7 +44,7 @@ const Menu = () => {
               <BsFillMoonFill className={"h-5 w-5"} />
             )}
           </label>
-          {currentUser && <Profile />}
+          {currentUser?.photoURL && <Profile />}
         </div>
       </div>
       <Outlet />

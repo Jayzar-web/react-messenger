@@ -1,15 +1,21 @@
 import Search from "./Search";
 import Chats from "./Chats";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpenedSidebar, setIsOpenedSidebar, isMobile }) => {
   return (
     <div
-      className={`border-lightBorders dark:border-darkBorders w-3/12 overflow-auto border-r-[1px] 
-      h-[calc(100vh-70px)] p-[9px] scrollbar-thin scrollbar-thumb-[#888888] scrollbar-track-[#DDDDDD]`}
+      className={`${
+        isOpenedSidebar ? "block" : "hidden"
+      } h-[calc(100vh-70px)] w-full overflow-auto border-r-[1px] border-lightBorders p-[9px] scrollbar-thin 
+      scrollbar-track-[#DDDDDD] scrollbar-thumb-[#888888] dark:border-darkBorders md:block md:w-4/12 lg:w-3/12`}
     >
-      <h1 className={"text-2xl text-center m-[20px]"}>Сообщения</h1>
+      <h1 className={"mb-[20px] text-center text-2xl"}>Контакты</h1>
       <Search />
-      <Chats />
+      <Chats
+        isMobile={isMobile}
+        isOpenedSidebar={isOpenedSidebar}
+        setIsOpenedSidebar={setIsOpenedSidebar}
+      />
     </div>
   );
 };

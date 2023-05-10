@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FiPaperclip } from "react-icons/fi";
 import { AuthContext } from "../contexts/AuthContext";
-import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
-import { updateProfile } from "firebase/auth";
 
 const Setting = ({ isShowSetting, setIsShowSetting }) => {
   const { currentUser } = useContext(AuthContext);
@@ -50,28 +47,29 @@ const Setting = ({ isShowSetting, setIsShowSetting }) => {
   return (
     <div>
       {isShowSetting && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-30">
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-gray-800 bg-opacity-75">
           {error && (
             <span
               className={
-                "bg-red-500/30 text-red-500 border-red-500 border-b border-t rounded p-2 absolute top-24"
+                "absolute top-24 rounded border-b border-t border-red-500 bg-red-500/30 p-2 text-red-500"
               }
             >
               {error}
             </span>
           )}
           <div
-            className={"bg-light text-lightText rounded-[10px] p-3 w-1/2 h-1/2"}
+            className={
+              "h-1/2 w-5/6 rounded-[10px] bg-light p-3 text-[10px] text-lightText md:w-3/4 md:text-[16px] lg:w-1/2"
+            }
           >
-            <div className={"flex gap-3 h-full"}>
-              {/* sidebar в котором пока 2 параметра такие как настройка профиля(Изменить аватар, имя) и о программе */}
-              <div className={"w-1/4"}>
+            <div className={"flex h-full gap-3"}>
+              <div className={"w-2/4"}>
                 <ul>
                   <li>
                     <button
                       onClick={() => setIsOpened(false)}
-                      className={`hover:bg-lightHover dark:hover:bg-darkHover 
-                        flex rounded-[10px] p-[10px] items-center justify-between w-full transition-all`}
+                      className={`flex w-full 
+                        items-center justify-between rounded-[10px] p-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover`}
                     >
                       Профиль
                     </button>
@@ -79,31 +77,31 @@ const Setting = ({ isShowSetting, setIsShowSetting }) => {
                   <li>
                     <button
                       onClick={() => setIsOpened(true)}
-                      className={`hover:bg-lightHover dark:hover:bg-darkHover 
-                        flex rounded-[10px] p-[10px] items-center justify-between w-full transition-all`}
+                      className={`flex w-full 
+                        items-center justify-between rounded-[10px] p-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover`}
                     >
                       О программе
                     </button>
                   </li>
                 </ul>
               </div>
-              <div className={"w-full p-3 shadow rounded-[10px]"}>
+              <div className={"w-full rounded-[10px] p-3 shadow"}>
                 {!isOpened ? (
                   <form
                     onSubmit={handleSave}
-                    className={"flex flex-col justify-between h-full"}
+                    className={"flex h-full flex-col justify-between"}
                   >
                     <div>
                       <h1>{`Профиль ${currentUser.displayName}`}</h1>
                       <div>
                         <h2>Сменить аватар</h2>
-                        <div className={"flex gap-4 items-center p-3"}>
+                        <div className={"flex items-center gap-4 p-3"}>
                           <div>
                             <img
                               src={currentUser.photoURL}
                               alt={"avatar"}
                               className={
-                                "rounded-full w-[50px] h-[50px] object-cover"
+                                "h-[50px] w-[50px] rounded-full object-cover"
                               }
                             />
                           </div>
@@ -111,17 +109,17 @@ const Setting = ({ isShowSetting, setIsShowSetting }) => {
                             {image && (
                               <span
                                 onClick={() => setImage(null)}
-                                className={`text-lightText hover:bg-lightHover dark:hover:bg-darkHover 
-                          absolute top-[-55px] left-[-35px] shadow bg-light rounded-[10px] p-2 cursor-pointer 
-                          max-w-[100px] whitespace-nowrap overflow-hidden overflow-ellipsis`}
+                                className={`absolute left-[-35px] top-[-55px] 
+                          max-w-[100px] cursor-pointer overflow-hidden overflow-ellipsis whitespace-nowrap rounded-[10px] bg-light p-2 
+                          text-lightText shadow hover:bg-lightHover dark:hover:bg-darkHover`}
                               >
                                 {image.name}
                               </span>
                             )}
                             <label className={"cursor-pointer"}>
                               <FiPaperclip
-                                className={`text-lightText hover:text-lightHover dark:hover:text-darkHover 
-                          w-[20px] h-[20px] transition-all`}
+                                className={`h-[20px] w-[20px] text-lightText 
+                          transition-all hover:text-lightHover dark:hover:text-darkHover`}
                               />
                               <input
                                 onChange={(e) => setImage(e.target.files[0])}
@@ -142,15 +140,15 @@ const Setting = ({ isShowSetting, setIsShowSetting }) => {
                           value={newDisplayName}
                           type="text"
                           placeholder="Введите новое имя"
-                          className={`text-lightText focus:outline-lightPrimary dark:focus:outline-darkPrimary 
-                          shadow border-b-2 rounded-[10px] w-full max-w-[250px] p-[10px] focus:outline-2 my-2`}
+                          className={`my-2 w-full max-w-[250px] 
+                          rounded-[10px] border-b-2 p-[10px] text-lightText shadow focus:outline-2 focus:outline-lightPrimary dark:focus:outline-darkPrimary`}
                         />
                       </div>
                     </div>
                     <div className={"mx-auto my-0"}>
                       <button
-                        className={`bg-green-500 hover:bg-green-400 active:scale-95
-                        flex rounded-[10px] p-[10px] items-center justify-between w-full transition-all`}
+                        className={`flex w-full items-center
+                        justify-between rounded-[10px] bg-green-500 p-[10px] transition-all hover:bg-green-400 active:scale-95`}
                       >
                         Применить
                       </button>
@@ -164,7 +162,7 @@ const Setting = ({ isShowSetting, setIsShowSetting }) => {
           </div>
           <button
             onClick={handleClose}
-            className="absolute top-[6px] right-[11px] p-2 text-white bg-red-600 rounded-full w-[52px] h-[52px] hover:bg-red-500 active:scale-95"
+            className="absolute right-[11px] top-[6px] h-[52px] w-[52px] rounded-full bg-red-600 p-2 text-white hover:bg-red-500 active:scale-95"
           >
             &times;
           </button>

@@ -121,7 +121,7 @@ const Register = () => {
   return (
     <div
       className={
-        "bg-light dark:bg-dark text-lightText dark:text-darkText h-[calc(100vh-70px)] w-screen flex items-center flex-col font-bold relative"
+        "relative flex h-[calc(100vh-70px)] w-screen flex-col items-center bg-light font-bold text-lightText dark:bg-dark dark:text-darkText"
       }
     >
       {uploadProgress > 0 && (
@@ -136,61 +136,60 @@ const Register = () => {
       )}
 
       <div
-        className={`flex rounded-[10px] w-96 h-[450px] bg-blue-50 flex-col justify-center items-center shadow-2xl absolute top-0 translate-y-[50%]`}
+        className={`absolute top-0 flex h-[450px] w-96 translate-y-[50%] flex-col items-center justify-center rounded-[10px] bg-blue-50 shadow-2xl`}
       >
-        <h1 className={"mb-[25px] text-gray-400 text-1xl"}>
+        <h1 className={"text-1xl mb-[25px] text-gray-400"}>
           Регистрация нового аккаунта
         </h1>
-        {}
         <form
           onSubmit={handleClick}
-          className={"flex flex-col items-center gap-4 w-3/4"}
+          className={"flex w-3/4 flex-col items-center gap-4"}
         >
           <input
             type="text"
             placeholder="Имя"
-            className={`text-lightText focus:outline-lightPrimary dark:focus:outline-darkPrimary 
-              shadow border-b-2 rounded-[10px] w-full p-[10px] focus:outline-2`}
+            className={`w-full rounded-[10px] border-b-2 
+              p-[10px] text-lightText shadow focus:outline-2 focus:outline-lightPrimary dark:focus:outline-darkPrimary`}
           />
           <input
             type="email"
             placeholder="Почта"
-            className={`text-lightText focus:outline-lightPrimary dark:focus:outline-darkPrimary 
-              shadow border-b-2 rounded-[10px] w-full p-[10px] focus:outline-2`}
+            className={`w-full rounded-[10px] border-b-2 
+              p-[10px] text-lightText shadow focus:outline-2 focus:outline-lightPrimary dark:focus:outline-darkPrimary`}
           />
           <input
             type="password"
             placeholder="Пароль"
-            className={`text-lightText focus:outline-lightPrimary dark:focus:outline-darkPrimary 
-              shadow border-b-2 rounded-[10px] w-full p-[10px] focus:outline-2`}
+            className={`w-full rounded-[10px] border-b-2 
+              p-[10px] text-lightText shadow focus:outline-2 focus:outline-lightPrimary dark:focus:outline-darkPrimary`}
           />
-          <label className={"cursor-pointer flex text-lightText"}>
+          <label className={"flex cursor-pointer text-lightText"}>
             <input type="file" className={"hidden"} />
-            <FiPaperclip className={"w-[32px] h-[32px] mx-2"} />
+            <FiPaperclip className={"mx-2 h-[32px] w-[32px]"} />
             <span>Загрузить аватар</span>
           </label>
           <button
-            className={`bg-lightPrimary hover:bg-lightHover dark:bg-darkPrimary dark:hover:bg-darkHover 
-              w-fit rounded-[10px] p-[15px] transition active:scale-95`}
+            className={`w-fit rounded-[10px] bg-lightPrimary p-[15px] 
+              transition hover:bg-lightHover active:scale-95 dark:bg-darkPrimary dark:hover:bg-darkHover`}
           >
             Зарегистрироваться
           </button>
           {error && (
             <span
               className={
-                "bg-red-500/30 text-red-500 border-red-500 border-b border-t rounded p-2 absolute top-[-100px]"
+                "absolute top-[-100px] rounded border-b border-t border-red-500 bg-red-500/30 p-2 text-red-500"
               }
             >
               {error}
             </span>
           )}
         </form>
-        <p className={"text-[15px] mt-[15px] text-gray-400"}>
+        <p className={"mt-[15px] text-[15px] text-gray-400"}>
           У вас уже есть аккаунт?
           <Link
             to={"/login"}
             className={
-              "hover:text-lightHover dark:hover:text-darkHover mx-[5px] transition-all hover:underline"
+              "mx-[5px] transition-all hover:text-lightHover hover:underline dark:hover:text-darkHover"
             }
           >
             Войти

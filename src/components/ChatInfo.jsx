@@ -1,16 +1,14 @@
 import { doc, getDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
-import { IoIosArrowUp, IoIosArrowDown, IoIosArrowBack } from "react-icons/io";
-import { BiBlock } from "react-icons/bi";
-import { IoNotifications } from "react-icons/io5";
+import { IoIosArrowDown, IoIosArrowBack } from "react-icons/io";
 import { ChatContext } from "../contexts/ChatContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import ModalImage from "./ModalImage";
 
-const ChatInfo = ({ isOpenedInfo }) => {
+const ChatInfo = ({ isMobile, setIsOpenedInfo }) => {
   const [images, setImages] = useState([]);
-  const [isOpened, setIsOpened] = useState(false);
+  const [isPhotoOpened, setIsPhotoOpened] = useState(false);
 
   const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
@@ -25,33 +23,42 @@ const ChatInfo = ({ isOpenedInfo }) => {
 
   return (
     <div
-      className={
-        "border-lightBorders dark:border-darkBorders h-[calc(100vh-70px)] max-w-[350px] w-full border-l-[1px] flex transition-all p-3 z-20 relative"
-      }
+      className={`relative z-20 flex h-[calc(100vh-70px)] w-full border-l-[1px] border-lightBorders p-3 
+        transition-all dark:border-darkBorders md:max-w-[250px] lg:max-w-[350px]`}
     >
-      {!isOpened ? (
+      {!isPhotoOpened ? (
         <div
-          className={"flex-col items-center w-full h-auto flex overflow-hidden"}
+          className={
+            "relative flex h-auto w-full flex-col items-center overflow-hidden"
+          }
         >
+          {isMobile && (
+            <IoIosArrowBack
+              onClick={() => setIsOpenedInfo(false)}
+              className={
+                "absolute left-0 h-[30px] w-[30px] rounded-full transition-all  active:scale-95 "
+              }
+            />
+          )}
           <img
             src={data.user?.photoURL}
             alt={"avatar"}
-            className={"rounded-full object-cover w-[150px] h-[150px]"}
+            className={"h-[150px] w-[150px] rounded-full object-cover"}
           />
-          <h1 className={"font-bold text-2xl my-[10px]"}>
+          <h1 className={"my-[10px] text-2xl font-bold"}>
             {data.user?.displayName}
           </h1>
           <button
-            onClick={() => setIsOpened(true)}
+            onClick={() => setIsPhotoOpened(true)}
             className={
-              "hover:bg-lightHover dark:hover:bg-darkHover flex rounded-[10px] p-[10px] items-center justify-between w-full transition-all"
+              "flex w-full items-center justify-between rounded-[10px] p-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover"
             }
           >
             Фото
           </button>
           <button
             className={
-              "hover:bg-lightHover dark:hover:bg-darkHover flex rounded-[10px] p-[10px] items-center justify-between w-full transition-all"
+              "flex w-full items-center justify-between rounded-[10px] p-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover"
             }
           >
             Действия
@@ -62,16 +69,16 @@ const ChatInfo = ({ isOpenedInfo }) => {
         <div className={"w-full"}>
           <div className={"flex items-center justify-between"}>
             <IoIosArrowBack
-              onClick={() => setIsOpened(false)}
+              onClick={() => setIsPhotoOpened(false)}
               className={
-                "hover:bg-lightHover dark:hover:bg-darkHover w-[30px] h-[30px] rounded-full transition-all cursor-pointer"
+                "h-[30px] w-[30px] cursor-pointer rounded-full transition-all hover:bg-lightHover dark:hover:bg-darkHover"
               }
             />
-            <h1 className={"font-bold text-2xl"}>Фото</h1>
+            <h1 className={"text-2xl font-bold"}>Фото</h1>
           </div>
           <div
             className={
-              "flex flex-wrap mt-1 p-2 max-h-[800px] overflow-auto scrollbar-thin scrollbar-thumb-[#888888] scrollbar-track-[#DDDDDD]"
+              "mt-1 flex max-h-[800px] flex-wrap overflow-auto p-2 scrollbar-thin scrollbar-track-[#DDDDDD] scrollbar-thumb-[#888888]"
             }
           >
             {images.map(

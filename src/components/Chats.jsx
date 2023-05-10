@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { ChatContext } from "../contexts/ChatContext";
 
-const Chats = () => {
+const Chats = ({ setIsOpenedSidebar, isMobile }) => {
   const [chats, setChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
@@ -24,6 +24,7 @@ const Chats = () => {
   }, [currentUser.uid]);
 
   const handleSelect = (user) => {
+    if (isMobile) setIsOpenedSidebar(false);
     dispatch({ type: "CHANGE_USER", payload: user });
   };
 
@@ -35,20 +36,20 @@ const Chats = () => {
           <div
             onClick={() => handleSelect(chat[1].userInfo)}
             key={chat[0]}
-            className={`bg-light hover:bg-lightHover dark:bg-dark dark:hover:bg-darkHover 
-              p-[10px] rounded-[10px] flex items-center gap-4 cursor-pointer transition-all`}
+            className={`flex cursor-pointer items-center gap-4 
+              rounded-[10px] bg-light p-[10px] transition-all hover:bg-lightHover dark:bg-dark dark:hover:bg-darkHover`}
           >
             <img
               src={chat[1].userInfo.photoURL}
               alt={"avatar"}
-              className={"rounded-full w-[50px] h-[50px] object-cover"}
+              className={"h-[50px] w-[50px] rounded-full object-cover"}
             />
-            <div className={"w-full flex justify-between items-end"}>
+            <div className={"flex w-full items-end justify-between"}>
               <div>
                 <span>{chat[1].userInfo.displayName}</span>
                 <p
                   className={
-                    "text-lightText/75 dark:text-darkText/75 max-w-[200px] whitespace-nowrap overflow-hidden overflow-ellipsis"
+                    "max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lightText/75 dark:text-darkText/75"
                   }
                 >
                   {chat[1].lastMessage?.text}

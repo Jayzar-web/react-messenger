@@ -5,15 +5,25 @@ import ChatInfo from "./ChatInfo";
 import Input from "./Input";
 import { ChatContext } from "../contexts/ChatContext";
 
-const Chat = () => {
+const Chat = ({ isOpenedSidebar, setIsOpenedSidebar, isMobile }) => {
   const { data } = useContext(ChatContext);
   const [isOpenedInfo, setIsOpenedInfo] = useState(false);
 
   return (
-    <div className={"w-full overflow-hidden flex"}>
+    <div
+      className={`${
+        isOpenedSidebar ? "hidden" : "flex"
+      } w-full overflow-hidden md:flex md:w-full`}
+    >
       {data.user?.uid ? (
-        <div className={"flex flex-1 flex-col justify-between"}>
+        <div
+          className={`${
+            isMobile ? (isOpenedInfo ? "hidden" : "flex-1") : "flex-1"
+          } flex-col justify-between md:flex`}
+        >
           <ChatHeader
+            isMobile={isMobile}
+            setIsOpenedSidebar={setIsOpenedSidebar}
             isOpenedInfo={isOpenedInfo}
             setIsOpenedInfo={setIsOpenedInfo}
           />
@@ -21,11 +31,19 @@ const Chat = () => {
           <Input />
         </div>
       ) : (
-        <div className={"flex w-full h-full justify-center items-center"}>
-          <span className={"bg-primary p-2 rounded-[10px]"}>Выберите чат</span>
+        <div
+          className={"hidden h-full w-full items-center justify-center md:flex"}
+        >
+          <span className={"bg-primary rounded-[10px] p-2"}>Выберите чат</span>
         </div>
       )}
-      {isOpenedInfo && <ChatInfo isOpenedInfo={isOpenedInfo} />}
+      {isOpenedInfo && (
+        <ChatInfo
+          isMobile={isMobile}
+          isOpenedInfo={isOpenedInfo}
+          setIsOpenedInfo={setIsOpenedInfo}
+        />
+      )}
     </div>
   );
 };

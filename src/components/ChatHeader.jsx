@@ -1,24 +1,38 @@
 import { AiFillInfoCircle } from "react-icons/ai";
 import { ChatContext } from "../contexts/ChatContext";
 import { useContext } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 
-const ChatHeader = ({ isOpenedInfo, setIsOpenedInfo }) => {
+const ChatHeader = ({
+  isOpenedInfo,
+  setIsOpenedInfo,
+  isMobile,
+  setIsOpenedSidebar,
+}) => {
   const { data } = useContext(ChatContext);
 
   return (
     <>
       <div
         className={
-          "h-[50px] w-full border-borders px-[10px] flex items-center shadow-md"
+          "border-borders flex h-[50px] w-full items-center px-[10px] shadow-md"
         }
       >
-        <div className={"flex justify-between items-center w-full"}>
+        <div className={"flex w-full items-center justify-between"}>
+          {isMobile && (
+            <IoIosArrowBack
+              onClick={() => setIsOpenedSidebar(true)}
+              className={
+                "h-[30px] w-[30px] cursor-pointer rounded-full transition-all hover:bg-lightHover active:scale-95 dark:hover:bg-darkHover"
+              }
+            />
+          )}
           <div className={"flex items-center gap-4"}>
             {data.user?.photoURL && (
               <img
                 src={data.user?.photoURL}
                 alt={"avatar"}
-                className={"rounded-full w-[40px] h-[40px] object-cover"}
+                className={"h-[40px] w-[40px] rounded-full object-cover"}
               />
             )}
             <span>{data.user?.displayName}</span>
@@ -28,8 +42,8 @@ const ChatHeader = ({ isOpenedInfo, setIsOpenedInfo }) => {
             onClick={() => {
               setIsOpenedInfo(!isOpenedInfo);
             }}
-            className={`text-lightText hover:text-lightHover dark:text-darkText dark:hover:text-darkHover 
-              w-[30px] h-[30px] rounded-full transition-all cursor-pointer`}
+            className={`h-[30px] w-[30px] cursor-pointer rounded-full 
+              text-lightText transition-all hover:text-lightHover dark:text-darkText dark:hover:text-darkHover`}
           />
         </div>
       </div>

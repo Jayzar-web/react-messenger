@@ -22,9 +22,9 @@ const ModalImage = ({ src, alt, width, height, scale, rounded, inMessage }) => {
       {isOpened && (
         <div
           onClick={() => setIsOpened(false)}
-          className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75"
         >
-          <div className="max-w-3xl mx-auto rounded-md overflow-hidden">
+          <div className="mx-auto max-w-[250px] overflow-hidden rounded-md md:max-w-[350px] lg:max-w-3xl">
             <img src={src} alt={alt} />
           </div>
         </div>

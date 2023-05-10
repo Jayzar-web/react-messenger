@@ -5,6 +5,7 @@ import {
   Timestamp,
   serverTimestamp,
 } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FiPaperclip } from "react-icons/fi";
@@ -12,7 +13,6 @@ import { IoSend } from "react-icons/io5";
 import { ChatContext } from "../contexts/ChatContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { db, storage } from "../firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Input = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -85,7 +85,7 @@ const Input = () => {
   };
 
   return (
-    <div className={"h-[50px] w-full flex justify-between items-center p-2 "}>
+    <div className={"flex h-[50px] w-full items-center justify-between p-2 "}>
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -93,24 +93,24 @@ const Input = () => {
         type={"text"}
         placeholder={"Aa"}
         className={
-          "p-[10px] bg-lightSecondary/25 focus:outline-none rounded-[10px] w-full mx-3"
+          "mx-3 w-full rounded-[10px] bg-lightSecondary/25 p-[10px] focus:outline-none"
         }
       />
-      <div className={"flex gap-2 text-primary relative"}>
+      <div className={"text-primary relative flex gap-2"}>
         {image && (
           <span
             onClick={() => setImage(null)}
-            className={`text-lightText hover:bg-lightHover dark:hover:bg-darkHover 
-              absolute top-[-55px] left-[-25px] shadow-xl bg-light rounded-[10px] p-2 cursor-pointer max-w-[100px] 
-              whitespace-nowrap overflow-hidden overflow-ellipsis`}
+            className={`absolute left-[-25px] top-[-55px] max-w-[100px] 
+              cursor-pointer overflow-hidden overflow-ellipsis whitespace-nowrap rounded-[10px] bg-light p-2 text-lightText shadow-xl 
+              hover:bg-lightHover dark:hover:bg-darkHover`}
           >
             {image.name}
           </span>
         )}
         <label htmlFor={"sendFile"} className={"cursor-pointer"}>
           <FiPaperclip
-            className={`text-lightText hover:text-lightHover dark:hover:text-darkHover 
-          w-[30px] h-[30px] transition-all`}
+            className={`h-[30px] w-[30px] text-lightText transition-all 
+          hover:text-lightHover dark:text-darkText dark:hover:text-darkHover`}
           />
         </label>
         <input
@@ -122,8 +122,8 @@ const Input = () => {
         />
         <button onClick={handleSend}>
           <IoSend
-            className={`text-lightText hover:text-lightHover dark:text-darkText dark:hover:text-darkHover
-             w-[30px] h-[30px] transition-all`}
+            className={`h-[30px] w-[30px] text-lightText transition-all
+             hover:text-lightHover dark:text-darkText dark:hover:text-darkHover`}
           />
         </button>
       </div>
