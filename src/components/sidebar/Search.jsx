@@ -10,9 +10,8 @@ import {
   updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { db } from "../firebase";
-import { AuthContext } from "../contexts/AuthContext";
-import login from "../pages/Login";
+import { db } from "../../firebase";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -86,13 +85,13 @@ const Search = () => {
   };
 
   return (
-    <div className={"search mb-[20px] relative"}>
+    <div className={"search relative mb-[20px]"}>
       <div className={"searchForm"}>
         <input
           // onKeyDown={handleKey}
           onChange={(event) => handleSearch(event.target.value)}
           value={username}
-          className={`bg-lightMessage dark:bg-darkMessage w-full h-[50px] p-[16px] focus:outline-none placeholder:text-[16px] ${
+          className={`h-[50px] w-full bg-lightMessage p-[16px] placeholder:text-[16px] focus:outline-none dark:bg-darkMessage ${
             user ? "rounded-t-[10px]" : "rounded-[10px]"
           }`}
           placeholder={"🔍 Поиск..."}
@@ -103,9 +102,9 @@ const Search = () => {
           <div
             key={index}
             onClick={() => handleSelect(user)}
-            className={`bg-lightMessage hover:bg-lightHover dark:bg-darkMessage dark:hover:bg-darkHover 
-            absolute w-full foundUser p-[10px] last-of-type:rounded-b-[10px] 
-            flex items-center gap-4 cursor-pointer transition-all`}
+            className={`foundUser absolute flex w-full 
+            cursor-pointer items-center gap-4 bg-lightMessage p-[10px] 
+            transition-all last-of-type:rounded-b-[10px] hover:bg-lightHover dark:bg-darkMessage dark:hover:bg-darkHover`}
             style={{
               top: 50 + index * 70,
             }}
@@ -113,7 +112,7 @@ const Search = () => {
             <img
               src={user.photoURL}
               alt={"avatar"}
-              className={"rounded-full w-[50px] h-[50px] object-cover"}
+              className={"h-[50px] w-[50px] rounded-full object-cover"}
             />
             <span>{user.displayName}</span>
           </div>

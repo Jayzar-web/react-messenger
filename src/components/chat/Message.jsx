@@ -1,10 +1,9 @@
 import { useContext, useEffect, useRef } from "react";
-import { ChatContext } from "../contexts/ChatContext";
-import { AuthContext } from "../contexts/AuthContext";
-import ModalImage from "./ModalImage";
+import { ChatContext } from "../../contexts/ChatContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import ModalImage from "../ModalImage";
 
 const Message = ({ message }) => {
-  const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
 
   const ref = useRef();
@@ -16,12 +15,12 @@ const Message = ({ message }) => {
   return (
     <div
       ref={ref}
-      className={`my-[5px] mx-[10px] flex ${
+      className={`mx-[10px] my-[5px] flex ${
         message.senderId === currentUser.uid && "justify-end"
       }`}
     >
       <div
-        className={`flex gap-3 items-start ${
+        className={`flex items-start gap-3 ${
           message.senderId === currentUser.uid && "flex-row-reverse"
         }`}
       >
@@ -32,7 +31,7 @@ const Message = ({ message }) => {
         >
           {message.text && (
             <p
-              className={`overflow-hidden break-words rounded-b-md p-2 max-w-[300px] ${
+              className={`max-w-[300px] overflow-hidden break-words rounded-b-md p-2 ${
                 message.senderId === currentUser.uid
                   ? "rounded-l-md bg-lightSelfMessage dark:bg-darkSelfMessage"
                   : "rounded-r-md bg-lightMessage dark:bg-darkMessage"
@@ -44,7 +43,7 @@ const Message = ({ message }) => {
           {message.image && (
             <ModalImage
               src={message.image}
-              className={`max-w-[500px] object-cover rounded-[10px] ${
+              className={`max-w-[500px] rounded-[10px] object-cover ${
                 message.text && " mt-2"
               }`}
               width={250}

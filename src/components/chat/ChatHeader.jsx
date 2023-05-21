@@ -1,14 +1,9 @@
 import { AiFillInfoCircle } from "react-icons/ai";
-import { ChatContext } from "../contexts/ChatContext";
+import { ChatContext } from "../../contexts/ChatContext";
 import { useContext } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
-const ChatHeader = ({
-  isOpenedInfo,
-  setIsOpenedInfo,
-  isMobile,
-  setIsOpenedSidebar,
-}) => {
+const ChatHeader = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
   const { data } = useContext(ChatContext);
 
   return (
@@ -19,14 +14,12 @@ const ChatHeader = ({
         }
       >
         <div className={"flex w-full items-center justify-between"}>
-          {isMobile && (
-            <IoIosArrowBack
-              onClick={() => setIsOpenedSidebar(true)}
-              className={
-                "h-[30px] w-[30px] cursor-pointer rounded-full transition-all hover:bg-lightHover active:scale-95 dark:hover:bg-darkHover"
-              }
-            />
-          )}
+          <IoIosArrowBack
+            onClick={() => setIsOpenedSidebar(true)}
+            className={
+              "block h-[30px] w-[30px] cursor-pointer rounded-full transition-all hover:bg-lightHover active:scale-95 dark:hover:bg-darkHover md:hidden"
+            }
+          />
           <div className={"flex items-center gap-4"}>
             {data.user?.photoURL && (
               <img
@@ -37,10 +30,9 @@ const ChatHeader = ({
             )}
             <span>{data.user?.displayName}</span>
           </div>
-          {/*<span className={"text-[#3AE841]"}>Онлайн</span>*/}
           <AiFillInfoCircle
             onClick={() => {
-              setIsOpenedInfo(!isOpenedInfo);
+              setIsOpenedInfo((prev) => !prev);
             }}
             className={`h-[30px] w-[30px] cursor-pointer rounded-full 
               text-lightText transition-all hover:text-lightHover dark:text-darkText dark:hover:text-darkHover`}

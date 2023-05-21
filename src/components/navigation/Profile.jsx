@@ -1,16 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import { ChatContext } from "../contexts/ChatContext";
-import Setting from "./Setting";
+import { auth } from "../../firebase";
+import { ChatContext } from "../../contexts/ChatContext";
+import About from "./About";
 
 const Profile = () => {
   const { data, dispatch } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
 
   const [isShow, setIsShow] = useState(false);
-  const [isShowSetting, setIsShowSetting] = useState(false);
+  const [isShowAbout, setIsShowAbout] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -32,45 +32,42 @@ const Profile = () => {
   };
 
   return (
-    <div className={"flex gap-4 items-center justify-center"}>
+    <div className={"flex items-center justify-center gap-4"}>
       <div className={"relative"} ref={menuRef}>
         <div>
           <button onClick={handleShow}>
             <img
               src={currentUser.photoURL}
               alt={"avatar"}
-              className={"rounded-full w-[50px] h-[50px] object-cover"}
+              className={"h-[50px] w-[50px] rounded-full object-cover"}
             />
           </button>
         </div>
-        <Setting
-          isShowSetting={isShowSetting}
-          setIsShowSetting={setIsShowSetting}
-        />
+        <About isShowAbout={isShowAbout} setIsShowAbout={setIsShowAbout} />
         {isShow && (
           <div
             className={
-              "bg-light dark:bg-dark absolute top-15 right-0 overflow-hidden rounded-[10px] shadow z-30"
+              "top-15 absolute right-0 z-30 overflow-hidden rounded-[10px] bg-light shadow dark:bg-dark"
             }
           >
             <ul className={"text-center "}>
               <li
                 className={
-                  "hover:bg-lightHover dark:hover:bg-darkHover transition-all w-full px-[10px] cursor-pointer"
+                  "w-full cursor-pointer px-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover"
                 }
               >
                 <button
                   onClick={() => {
-                    setIsShowSetting(true);
+                    setIsShowAbout(true);
                     setIsShow(false);
                   }}
                 >
-                  Настройки
+                  Информация
                 </button>
               </li>
               <li
                 className={
-                  "hover:bg-lightHover dark:hover:bg-darkHover transition-all w-full px-[10px] cursor-pointer"
+                  "w-full cursor-pointer px-[10px] transition-all hover:bg-lightHover dark:hover:bg-darkHover"
                 }
               >
                 <button

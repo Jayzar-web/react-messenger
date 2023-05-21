@@ -2,10 +2,10 @@ import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import Profile from "./Profile";
-import { ThemeContext } from "../contexts/ThemeContext";
-import { AuthContext } from "../contexts/AuthContext";
-import logoLight from "../assets/menuLight.svg";
-import logoDark from "../assets/menuDark.svg";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import logoLight from "../../assets/menuLight.svg";
+import logoDark from "../../assets/menuDark.svg";
 
 const Menu = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -27,7 +27,7 @@ const Menu = () => {
           <img
             src={theme === "light" ? logoLight : logoDark}
             alt={"logo"}
-            className={"w-[200px]"}
+            className={"h-[50px] w-[150px]"}
           />
         </div>
         <div className={"flex items-center gap-4"}>

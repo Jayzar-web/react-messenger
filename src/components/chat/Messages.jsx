@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { ChatContext } from "../contexts/ChatContext";
+import { ChatContext } from "../../contexts/ChatContext";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import Message from "./Message";
 
 const Messages = () => {
@@ -21,7 +21,7 @@ const Messages = () => {
   return (
     <div
       className={
-        "h-[calc(100vh-170px)] overflow-auto scrollbar-thin scrollbar-thumb-[#888888] scrollbar-track-[#DDDDDD]"
+        "h-[calc(100vh-170px)] overflow-auto scrollbar-thin scrollbar-track-[#DDDDDD] scrollbar-thumb-[#888888]"
       }
     >
       {messages.map((m) => (

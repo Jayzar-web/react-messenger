@@ -3,26 +3,27 @@ import Messages from "./Messages";
 import ChatHeader from "./ChatHeader";
 import ChatInfo from "./ChatInfo";
 import Input from "./Input";
-import { ChatContext } from "../contexts/ChatContext";
+import { ChatContext } from "../../contexts/ChatContext";
 
-const Chat = ({ isOpenedSidebar, setIsOpenedSidebar, isMobile }) => {
+const Chat = ({ isOpenedSidebar, setIsOpenedSidebar }) => {
   const { data } = useContext(ChatContext);
   const [isOpenedInfo, setIsOpenedInfo] = useState(false);
+
+  console.log(isOpenedInfo);
 
   return (
     <div
       className={`${
-        isOpenedSidebar ? "hidden" : "flex"
-      } w-full overflow-hidden md:flex md:w-full`}
+        isOpenedSidebar ? "hidden" : "block"
+      } w-full overflow-hidden md:flex`}
     >
       {data.user?.uid ? (
         <div
           className={`${
-            isMobile ? (isOpenedInfo ? "hidden" : "flex-1") : "flex-1"
-          } flex-col justify-between md:flex`}
+            isOpenedInfo && "hidden"
+          } w-full flex-col justify-between md:flex`}
         >
           <ChatHeader
-            isMobile={isMobile}
             setIsOpenedSidebar={setIsOpenedSidebar}
             isOpenedInfo={isOpenedInfo}
             setIsOpenedInfo={setIsOpenedInfo}
@@ -39,7 +40,6 @@ const Chat = ({ isOpenedSidebar, setIsOpenedSidebar, isMobile }) => {
       )}
       {isOpenedInfo && (
         <ChatInfo
-          isMobile={isMobile}
           isOpenedInfo={isOpenedInfo}
           setIsOpenedInfo={setIsOpenedInfo}
         />

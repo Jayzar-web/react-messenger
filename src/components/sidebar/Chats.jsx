@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { AuthContext } from "../contexts/AuthContext";
-import { db } from "../firebase";
-import { ChatContext } from "../contexts/ChatContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { db } from "../../firebase";
+import { ChatContext } from "../../contexts/ChatContext";
 
-const Chats = ({ setIsOpenedSidebar, isMobile }) => {
+const Chats = ({ setIsOpenedSidebar }) => {
   const [chats, setChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { data, dispatch } = useContext(ChatContext);
 
   useEffect(() => {
     const getChats = () => {
@@ -20,11 +20,12 @@ const Chats = ({ setIsOpenedSidebar, isMobile }) => {
         unsub();
       };
     };
+
     currentUser.uid && getChats();
-  }, [currentUser.uid]);
+  }, [currentUser.uid, data]);
 
   const handleSelect = (user) => {
-    if (isMobile) setIsOpenedSidebar(false);
+    setIsOpenedSidebar(false);
     dispatch({ type: "CHANGE_USER", payload: user });
   };
 

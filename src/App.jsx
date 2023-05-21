@@ -4,7 +4,7 @@ import { AuthContext } from "./contexts/AuthContext";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Menu from "./components/Menu";
+import Menu from "./components/navigation/Menu";
 
 function App() {
   const { currentUser } = useContext(AuthContext);

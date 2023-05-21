@@ -136,7 +136,7 @@ const Register = () => {
       )}
 
       <div
-        className={`absolute top-0 flex h-[450px] w-96 translate-y-[50%] flex-col items-center justify-center rounded-[10px] bg-blue-50 shadow-2xl`}
+        className={`absolute top-[50%] flex h-[450px] w-96 translate-y-[-50%] flex-col items-center justify-center rounded-[10px] bg-blue-50 shadow-2xl`}
       >
         <h1 className={"text-1xl mb-[25px] text-gray-400"}>
           Регистрация нового аккаунта

@@ -10,9 +10,9 @@ import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FiPaperclip } from "react-icons/fi";
 import { IoSend } from "react-icons/io5";
-import { ChatContext } from "../contexts/ChatContext";
-import { AuthContext } from "../contexts/AuthContext";
-import { db, storage } from "../firebase";
+import { ChatContext } from "../../contexts/ChatContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { db, storage } from "../../firebase";
 
 const Input = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -65,7 +65,6 @@ const Input = () => {
         }
       );
     }
-    const getLastMessageDate = () => {};
 
     await updateDoc(doc(db, "userChat", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
@@ -96,7 +95,7 @@ const Input = () => {
           "mx-3 w-full rounded-[10px] bg-lightSecondary/25 p-[10px] focus:outline-none"
         }
       />
-      <div className={"text-primary relative flex gap-2"}>
+      <div className={"text-primary l relative flex gap-2 leading-[13px]"}>
         {image && (
           <span
             onClick={() => setImage(null)}

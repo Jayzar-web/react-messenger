@@ -1,23 +1,9 @@
-import { useEffect, useState } from "react";
-import Chat from "../components/Chat";
-import Sidebar from "../components/Sidebar";
+import { useState } from "react";
+import Chat from "../components/chat/Chat";
+import Sidebar from "../components/sidebar/Sidebar";
 
 const Home = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const [isOpenedSidebar, setIsOpenedSidebar] = useState(true);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <div
@@ -27,12 +13,10 @@ const Home = () => {
     >
       <div className={"flex"}>
         <Sidebar
-          isMobile={isMobile}
           isOpenedSidebar={isOpenedSidebar}
           setIsOpenedSidebar={setIsOpenedSidebar}
         />
         <Chat
-          isMobile={isMobile}
           isOpenedSidebar={isOpenedSidebar}
           setIsOpenedSidebar={setIsOpenedSidebar}
         />
