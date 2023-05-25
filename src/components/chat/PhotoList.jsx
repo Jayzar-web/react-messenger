@@ -15,8 +15,6 @@ const PhotoList = ({ images }) => {
                 src={image}
                 alt={image}
                 key={image}
-                width={100}
-                height={100}
                 scale={true}
                 rounded={false}
                 isMessage={false}

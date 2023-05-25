@@ -6,7 +6,7 @@ import { ChatContext } from "../../contexts/ChatContext";
 import About from "./About";
 
 const Profile = () => {
-  const { data, dispatch } = useContext(ChatContext);
+  const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
 
   const [isShow, setIsShow] = useState(false);

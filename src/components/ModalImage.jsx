@@ -17,7 +17,9 @@ const ModalImage = ({ src, alt, width, height, scale, rounded, inMessage }) => {
           objectFit: "cover",
           marginTop: inMessage ? "5px" : "0px",
         }}
-        className={"" + (scale ? "transition-all hover:scale-110" : "")}
+        className={`h-[115px] w-[115px] md:h-[100px] md:w-[100px] ${
+          scale ? "transition-all hover:scale-110" : ""
+        }`}
       />
       {isOpened && (
         <div

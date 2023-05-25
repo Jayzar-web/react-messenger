@@ -22,7 +22,7 @@ const Chats = ({ setIsOpenedSidebar }) => {
     };
 
     currentUser.uid && getChats();
-  }, [currentUser.uid, data]);
+  }, [currentUser, data]);
 
   const handleSelect = (user) => {
     setIsOpenedSidebar(false);

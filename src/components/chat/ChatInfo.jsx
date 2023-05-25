@@ -5,8 +5,9 @@ import { ChatContext } from "../../contexts/ChatContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
 import PhotoList from "./PhotoList";
+import ChatActions from "./ChatActions";
 
-const ChatInfo = ({ setIsOpenedInfo }) => {
+const ChatInfo = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
   const [images, setImages] = useState([]);
 
   const { data } = useContext(ChatContext);
@@ -15,7 +16,10 @@ const ChatInfo = ({ setIsOpenedInfo }) => {
   useEffect(() => {
     const loadImages = async () => {
       const docRef = await getDoc(doc(db, "chats", data.chatId));
-      setImages(docRef.data().messages.map((message) => message.image));
+      const messages = docRef.data()?.messages; // Проверка на наличие messages
+      if (messages) {
+        setImages(messages.map((message) => message?.image));
+      }
     };
     currentUser.uid && loadImages();
   }, [data.chatId, images]);
@@ -44,6 +48,10 @@ const ChatInfo = ({ setIsOpenedInfo }) => {
         <h1 className={"my-[10px] text-2xl font-bold"}>
           {data.user?.displayName}
         </h1>
+        <ChatActions
+          closeInfo={setIsOpenedInfo}
+          setIsOpenedSidebar={setIsOpenedSidebar}
+        />
 
         <PhotoList images={images} />
       </div>

@@ -24,7 +24,7 @@ const Search = () => {
     setUsername(username);
     const q = query(
       collection(db, "users"),
-      where("displayName", "==", username)
+      where("displayName", "==", username.toLowerCase().trim())
     );
     try {
       const querySnapshot = await getDocs(q);

@@ -9,8 +9,6 @@ const Chat = ({ isOpenedSidebar, setIsOpenedSidebar }) => {
   const { data } = useContext(ChatContext);
   const [isOpenedInfo, setIsOpenedInfo] = useState(false);
 
-  console.log(isOpenedInfo);
-
   return (
     <div
       className={`${
@@ -40,6 +38,7 @@ const Chat = ({ isOpenedSidebar, setIsOpenedSidebar }) => {
       )}
       {isOpenedInfo && (
         <ChatInfo
+          setIsOpenedSidebar={setIsOpenedSidebar}
           isOpenedInfo={isOpenedInfo}
           setIsOpenedInfo={setIsOpenedInfo}
         />
