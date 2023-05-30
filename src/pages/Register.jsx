@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   fetchSignInMethodsForEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -103,9 +104,9 @@ const Register = () => {
               displayName,
               email,
               photoURL: downloadURL,
-              online: true,
             });
             await setDoc(doc(db, "userChat", res.user.uid), {});
+            await sendEmailVerification(auth.currentUser);
             await navigate("/");
           });
         }
@@ -136,7 +137,7 @@ const Register = () => {
       )}
 
       <div
-        className={`absolute top-[50%] flex h-[450px] w-96 translate-y-[-50%] flex-col items-center justify-center rounded-[10px] bg-blue-50 shadow-2xl`}
+        className={`relative top-[50%] flex h-[450px] w-96 translate-y-[-50%] flex-col items-center justify-center rounded-[10px] bg-blue-50 shadow-2xl`}
       >
         <h1 className={"text-1xl mb-[25px] text-gray-400"}>
           Регистрация нового аккаунта
