@@ -1,3 +1,11 @@
+// react
+import { useContext, useState } from "react";
+// uuid
+import { v4 as uuidv4 } from "uuid";
+// icons
+import { FiPaperclip } from "react-icons/fi";
+import { IoSend } from "react-icons/io5";
+// firebase
 import {
   doc,
   updateDoc,
@@ -6,21 +14,24 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { FiPaperclip } from "react-icons/fi";
-import { IoSend } from "react-icons/io5";
+import { db, storage } from "../../firebase";
+// context
 import { ChatContext } from "../../contexts/ChatContext";
 import { AuthContext } from "../../contexts/AuthContext";
-import { db, storage } from "../../firebase";
+// emoji
+import emojiData from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Input = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
+  const [isOpenedEmoji, setIsOpenedEmoji] = useState(false);
 
   const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   const handleSend = async () => {
     if (!image) {
@@ -84,18 +95,42 @@ const Input = () => {
   };
 
   return (
-    <div className={"flex h-[50px] w-full items-center justify-between p-2 "}>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        type={"text"}
-        placeholder={"Aa"}
-        className={
-          "mx-3 w-full rounded-[10px] bg-lightSecondary/25 p-[10px] focus:outline-none"
-        }
-      />
-      <div className={"text-primary l relative flex gap-2 leading-[13px]"}>
+    <div
+      className={"flex h-[50px] w-full items-center justify-between px-2 py-1"}
+    >
+      <div className={"relative h-full w-full"}>
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          type={"text"}
+          placeholder={"Aa"}
+          className={
+            "relative w-full rounded-[10px] bg-lightSecondary/25 p-[10px] focus:outline-none"
+          }
+        />
+        <div>
+          <button
+            onClick={() => setIsOpenedEmoji((prevState) => !prevState)}
+            className={"absolute bottom-[50%] right-0 translate-y-[50%]"}
+          >
+            <span className={"text-3xl"}>🤨</span>
+          </button>
+          {isOpenedEmoji && (
+            <span className={"absolute bottom-[50px] right-0"}>
+              <Picker
+                theme={theme}
+                data={emojiData}
+                onEmojiSelect={(emoji) => {
+                  setText(text + emoji.native);
+                }}
+                locale={"ru"}
+              />
+            </span>
+          )}
+        </div>
+      </div>
+      <div className={"text-primary relative mx-3 flex gap-2 leading-[13px]"}>
         {image && (
           <span
             onClick={() => setImage(null)}
@@ -106,7 +141,7 @@ const Input = () => {
             {image.name}
           </span>
         )}
-        <label htmlFor={"sendFile"} className={"cursor-pointer"}>
+        <label htmlFor={"sendFile"} className={"block w-full cursor-pointer"}>
           <FiPaperclip
             className={`h-[30px] w-[30px] text-lightText transition-all 
           hover:text-lightHover dark:text-darkText dark:hover:text-darkHover`}

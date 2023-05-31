@@ -8,32 +8,21 @@ import Loading from "../components/Loading";
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
   const [isOpenedSidebar, setIsOpenedSidebar] = useState(true);
-  const [verified, setVerified] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [verified, setVerified] = useState(currentUser.emailVerified);
 
   useEffect(() => {
     const verifyEmail = async () => {
-      const storedVerified = localStorage.getItem("verified");
-      if (storedVerified !== null) {
-        setVerified(storedVerified === "true");
-      } else {
-        if (currentUser && currentUser.emailVerified) {
-          setVerified(true);
-          localStorage.setItem("verified", true);
-        } else {
-          setVerified(false);
-          localStorage.setItem("verified", false);
-        }
+      if (currentUser && currentUser.emailVerified) {
+        setVerified(true);
       }
-      setIsLoaded(true);
     };
 
     verifyEmail();
   }, [currentUser]);
 
-  console.log(verified);
-
-  if (!isLoaded) return <Loading />;
+  if (verified === undefined) {
+    return <Loading />; // Или другая пустая разметка, чтобы ничего не показывалось на короткое время
+  }
 
   return (
     <div

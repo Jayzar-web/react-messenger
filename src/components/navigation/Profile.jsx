@@ -74,7 +74,6 @@ const Profile = () => {
                   onClick={() => {
                     signOut(auth);
                     data.user.uid = null;
-                    localStorage.removeItem("verified");
                   }}
                 >
                   Выйти
