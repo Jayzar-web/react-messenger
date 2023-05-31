@@ -4,6 +4,8 @@ import Sidebar from "../components/sidebar/Sidebar";
 import { AuthContext } from "../contexts/AuthContext";
 import WithoutVerification from "../components/WithoutVerification";
 import Loading from "../components/Loading";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
@@ -11,14 +13,16 @@ const Home = () => {
   const [verified, setVerified] = useState(currentUser.emailVerified);
 
   useEffect(() => {
-    const verifyEmail = async () => {
-      if (currentUser && currentUser.emailVerified) {
+    const unSub = onAuthStateChanged(auth, (user) => {
+      console.log("Проверка почты");
+      if (user && user.emailVerified) {
+        console.log("Почта подтверждена");
         setVerified(true);
       }
-    };
+    });
 
-    verifyEmail();
-  }, [currentUser]);
+    return () => unSub();
+  }, []);
 
   if (verified === undefined) {
     return <Loading />; // Или другая пустая разметка, чтобы ничего не показывалось на короткое время

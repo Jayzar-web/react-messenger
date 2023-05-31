@@ -1,6 +1,6 @@
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { Outlet } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Profile from "./Profile";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -44,7 +44,7 @@ const Menu = () => {
               <BsFillMoonFill className={"h-5 w-5"} />
             )}
           </label>
-          {currentUser?.photoURL && <Profile />}
+          {currentUser?.emailVerified && <Profile />}
         </div>
       </div>
       <Outlet />

@@ -1,9 +1,9 @@
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   createUserWithEmailAndPassword,
-  updateProfile,
   fetchSignInMethodsForEmail,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
