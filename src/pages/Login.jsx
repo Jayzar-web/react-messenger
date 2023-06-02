@@ -81,6 +81,17 @@ const Login = () => {
             Зарегистрироваться
           </Link>
         </p>
+        <p className={"mt-[5px] text-[15px] text-gray-400"}>
+          Забыли пароль?
+          <Link
+            to={"/reset-password"}
+            className={
+              "mx-[5px] transition-all hover:text-lightHover hover:underline dark:hover:text-darkHover"
+            }
+          >
+            Восстановить
+          </Link>
+        </p>
       </div>
     </div>
   );

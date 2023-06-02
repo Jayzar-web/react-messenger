@@ -1,6 +1,6 @@
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { Outlet } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Profile from "./Profile";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { AuthContext } from "../../contexts/AuthContext";

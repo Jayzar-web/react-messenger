@@ -43,7 +43,11 @@ const Profile = () => {
             />
           </button>
         </div>
-        <About isShowAbout={isShowAbout} setIsShowAbout={setIsShowAbout} />
+        <About
+          user={currentUser}
+          isShowAbout={isShowAbout}
+          setIsShowAbout={setIsShowAbout}
+        />
         {isShow && (
           <div
             className={

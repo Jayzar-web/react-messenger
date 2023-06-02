@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Menu from "./components/navigation/Menu";
+import ResetPassword from "./pages/ResetPassword";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -12,6 +14,13 @@ function App() {
   const ProtectedHomeRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to={"login"} />;
+    }
+    return children;
+  };
+
+  const ProtectedLoginRoute = ({ children }) => {
+    if (currentUser) {
+      return <Navigate to={"/"} />;
     }
     return children;
   };
@@ -29,8 +38,31 @@ function App() {
                 </ProtectedHomeRoute>
               }
             />
-            <Route path={"login"} element={<Login />} />
-            <Route path={"register"} element={<Register />} />
+            <Route
+              path={"login"}
+              element={
+                <ProtectedLoginRoute>
+                  <Login />
+                </ProtectedLoginRoute>
+              }
+            />
+            <Route
+              path={"register"}
+              element={
+                <ProtectedLoginRoute>
+                  <Register />
+                </ProtectedLoginRoute>
+              }
+            />
+            <Route
+              path={"reset-password"}
+              element={
+                <ProtectedLoginRoute>
+                  <ResetPassword />
+                </ProtectedLoginRoute>
+              }
+            />
+            <Route path={"*"} element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

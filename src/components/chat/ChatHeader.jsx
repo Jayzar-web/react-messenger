@@ -1,10 +1,16 @@
 import { AiFillInfoCircle } from "react-icons/ai";
 import { ChatContext } from "../../contexts/ChatContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import About from "../navigation/About";
 
 const ChatHeader = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
+  const [isOpenedAbout, setIsOpenedAbout] = useState(false);
   const { data } = useContext(ChatContext);
+
+  const handleClick = () => {
+    setIsOpenedAbout(true);
+  };
 
   return (
     <>
@@ -20,7 +26,10 @@ const ChatHeader = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
               "block h-[30px] w-[30px] cursor-pointer rounded-full transition-all hover:bg-lightHover active:scale-95 dark:hover:bg-darkHover md:hidden"
             }
           />
-          <div className={"flex items-center gap-4"}>
+          <div
+            onClick={handleClick}
+            className={"flex cursor-pointer items-center gap-4"}
+          >
             {data.user?.photoURL && (
               <img
                 src={data.user?.photoURL}
@@ -30,6 +39,11 @@ const ChatHeader = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
             )}
             <span>{data.user?.displayName}</span>
           </div>
+          <About
+            user={data.user}
+            isShowAbout={isOpenedAbout}
+            setIsShowAbout={setIsOpenedAbout}
+          />
           <AiFillInfoCircle
             onClick={() => {
               setIsOpenedInfo((prev) => !prev);

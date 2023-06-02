@@ -25,7 +25,7 @@ const Home = () => {
   }, []);
 
   if (verified === undefined) {
-    return <Loading />; // Или другая пустая разметка, чтобы ничего не показывалось на короткое время
+    return <Loading />;
   }
 
   return (

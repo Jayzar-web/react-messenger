@@ -40,17 +40,22 @@ const WithoutVerification = () => {
   return (
     <div
       className={
-        "flex h-[calc(100vh-70px)] w-full flex-col items-center justify-center gap-3"
+        "flex h-[calc(100vh-70px)] w-full flex-col items-center justify-center gap-3 text-center"
       }
     >
-      <p>Подтвердите почту для дальнейшего использования</p>
+      <p className={"text-2xl"}>Подтвердите почту</p>
       <button
         disabled={isTimerActive}
         onClick={handleSend}
-        className={"cursor-pointer transition-all disabled:text-red-500"}
+        className={
+          "w-44 cursor-pointer rounded-[10px] bg-lightHover p-2 transition-all disabled:cursor-default disabled:text-red-500 active:scale-95"
+        }
       >
-        {isTimerActive ? `${timer}` : `Отправить письмо еще раз`}
+        {isTimerActive ? `${timer}` : `Отправить письмо`}
       </button>
+      <p className={"text-[14px]"}>
+        После подтверждения необходимо перезагрузить страницу
+      </p>
     </div>
   );
 };
