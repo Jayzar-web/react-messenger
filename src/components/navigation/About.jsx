@@ -1,12 +1,50 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ChatContext } from "../../contexts/ChatContext";
 import ModalImage from "../ModalImage";
 import { SiGmail } from "react-icons/si";
+import TelegramLink from "../TelegramLink";
+import { db } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const About = ({ user, isShowAbout, setIsShowAbout }) => {
+  const [isUser, setIsUser] = useState(false);
+  const [telegram, setTelegram] = useState("");
+  const [success, setSuccess] = useState(false);
+
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if (user.uid === currentUser.uid) {
+        setIsUser(true);
+      } else {
+        setIsUser(false);
+      }
+    };
+
+    checkUser();
+  }, [user, currentUser]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userDocRef, {
+        telegram,
+      });
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 5000);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setTelegram("");
+  };
 
   return (
     <>
@@ -14,18 +52,18 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div
             className={
-              "h-full max-h-[450px] min-h-[350px] w-[35%] overflow-hidden rounded-[10px] bg-light text-[10px] text-lightText md:text-[16px]"
+              "relative h-full max-h-[450px] min-h-[350px] w-[35%] rounded-[10px] bg-light text-[10px] text-lightText md:text-[16px]"
             }
           >
-            <div className={"flex h-full w-full flex-col gap-3 sm:flex-row"}>
+            <div className={" flex h-full w-full flex-col gap-3 sm:flex-row"}>
               <div
                 className={
-                  "flex h-[60%] flex-col gap-2 p-3 sm:h-full sm:w-[70%]"
+                  "relative flex h-[60%] flex-col gap-2 p-3 sm:h-full sm:w-[70%]"
                 }
               >
                 <h1 className={"text-2xl"}>Основная информация</h1>
                 <p>Имя пользователя: {user.displayName}</p>
-                {user.email && <p>Почта: {user.email}</p>}
+                {isUser && <p>Почта: {user.email}</p>}
                 <div className={"flex items-center gap-3"}>
                   <p>Аватар:</p>
                   <ModalImage
@@ -34,10 +72,32 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
                     rounded={true}
                   />
                 </div>
+                {isUser ? (
+                  <form
+                    onSubmit={handleSubmit}
+                    className={"flex max-w-[250px] flex-col gap-2"}
+                  >
+                    <p>Добавить телеграмм: </p>
+                    <input
+                      placeholder={"введите username без @"}
+                      type={"text"}
+                      className={
+                        "rounded bg-lightPrimary p-1 placeholder:text-lightText focus:outline-none"
+                      }
+                      value={telegram}
+                      onChange={(e) => setTelegram(e.target.value)}
+                    />
+                    <button className={"rounded-[10px] bg-lightPrimary p-2"}>
+                      Применить
+                    </button>
+                  </form>
+                ) : (
+                  user.telegram && <TelegramLink username={user.telegram} />
+                )}
               </div>
               <div
                 className={
-                  "flex h-[30%] flex-col justify-between bg-lightPrimary p-3 sm:h-full sm:w-[40%]"
+                  "flex h-[30%] flex-col justify-between rounded-r-[10px] bg-lightPrimary p-3 sm:h-full sm:w-[40%]"
                 }
               >
                 <h1 className={"text-2xl"}>Поддержка</h1>
@@ -60,6 +120,15 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
                 </p>
               </div>
             </div>
+            {success && (
+              <span
+                className={
+                  "absolute left-[50%] top-[-100px] translate-x-[-50%] rounded border-b border-t border-green-500 bg-green-500/30 p-2 text-green-500"
+                }
+              >
+                Телеграмм успешно добавлен
+              </span>
+            )}
           </div>
 
           <button

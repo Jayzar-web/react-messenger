@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { AuthContext } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
 import { ChatContext } from "../../contexts/ChatContext";
@@ -24,9 +24,13 @@ const Chats = ({ setIsOpenedSidebar }) => {
     currentUser.uid && getChats();
   }, [currentUser, data]);
 
-  const handleSelect = (user) => {
+  const handleSelect = async (user) => {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    const docData = docSnap.data();
+
     setIsOpenedSidebar(false);
-    dispatch({ type: "CHANGE_USER", payload: user });
+    dispatch({ type: "CHANGE_USER", payload: docData });
   };
 
   return (
@@ -56,7 +60,6 @@ const Chats = ({ setIsOpenedSidebar }) => {
                   {chat[1].lastMessage?.text}
                 </p>
               </div>
-              {/*<p className={"lastMessageTime"}></p>*/}
             </div>
           </div>
         ))}

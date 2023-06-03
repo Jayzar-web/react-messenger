@@ -104,10 +104,11 @@ const Register = () => {
               displayName,
               email,
               photoURL: downloadURL,
+              telegram: null,
             });
             await setDoc(doc(db, "userChat", res.user.uid), {});
             await sendEmailVerification(auth.currentUser);
-            await navigate("/");
+            navigate("/");
           });
         }
       );
