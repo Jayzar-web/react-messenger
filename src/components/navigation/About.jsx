@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { ChatContext } from "../../contexts/ChatContext";
 import ModalImage from "../ModalImage";
 import { SiGmail } from "react-icons/si";
 import TelegramLink from "../TelegramLink";
