@@ -13,7 +13,6 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
   const [success, setSuccess] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
-  const { data } = useContext(ChatContext);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -52,25 +51,32 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div
             className={
-              "relative h-full max-h-[450px] min-h-[350px] w-[35%] rounded-[10px] bg-light text-[10px] text-lightText md:text-[16px]"
+              "relative m-3 h-full max-h-[450px] min-h-[350px] w-full rounded-[10px] bg-light text-[10px] text-lightText sm:w-[75%] md:w-[55%] md:text-[16px] lg:w-[35%]"
             }
           >
-            <div className={" flex h-full w-full flex-col gap-3 sm:flex-row"}>
+            <div className={"flex h-full w-full flex-col gap-3 sm:flex-row"}>
+              <h1 className={"w-full p-3 text-2xl sm:hidden"}>
+                Основная информация
+              </h1>
               <div
                 className={
-                  "relative flex h-[60%] flex-col gap-2 p-3 sm:h-full sm:w-[70%]"
+                  "relative flex h-[50%] flex-row items-center gap-2 p-3 sm:h-full sm:w-[70%] sm:flex-col sm:items-start"
                 }
               >
-                <h1 className={"text-2xl"}>Основная информация</h1>
-                <p>Имя пользователя: {user.displayName}</p>
-                {isUser && <p>Почта: {user.email}</p>}
-                <div className={"flex items-center gap-3"}>
-                  <p>Аватар:</p>
-                  <ModalImage
-                    src={user.photoURL}
-                    alt={"user avatar"}
-                    rounded={true}
-                  />
+                <div>
+                  <h1 className={"hidden w-full text-2xl sm:block"}>
+                    Основная информация
+                  </h1>
+                  <p>Имя пользователя: {user.displayName}</p>
+                  {isUser && <p>Почта: {user.email}</p>}
+                  <div className={"flex items-center gap-3"}>
+                    <p>Аватар:</p>
+                    <ModalImage
+                      src={user.photoURL}
+                      alt={"user avatar"}
+                      rounded={true}
+                    />
+                  </div>
                 </div>
                 {isUser ? (
                   <form
@@ -97,16 +103,16 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
               </div>
               <div
                 className={
-                  "flex h-[30%] flex-col justify-between rounded-r-[10px] bg-lightPrimary p-3 sm:h-full sm:w-[40%]"
+                  "flex h-[50%] flex-col justify-between rounded-b-[10px] bg-lightPrimary p-3 sm:h-full sm:w-[40%] sm:rounded-r-[10px]"
                 }
               >
                 <h1 className={"text-2xl"}>Поддержка</h1>
-                <div className={"mt-4"}>
+                <div className={"sm:mt-4"}>
                   <p>
                     Если у вас возникли вопросы, предложения или проблемы, вы
                     можете обратиться по следующим источникам:
                   </p>
-                  <div className={"flex flex-row gap-3"}>
+                  <div className={"flex flex-row items-center gap-3"}>
                     <SiGmail className={"text-[25px]"} />
                     roflanblch@gmail.com
                   </div>
