@@ -38,17 +38,16 @@ const ChatActions = ({ closeInfo, setIsOpenedSidebar }) => {
       await updateDoc(doc(db, "userChat", currentUserID), {
         [chatId]: deleteField(),
       });
+      await updateDoc(doc(db, "userChat", chatterID), {
+        [chatId]: deleteField(),
+      });
       await deleteDoc(doc(db, "chats", chatId));
       await dispatch({ type: "DELETE_CHAT" });
       closeInfo(false);
       setIsOpenedSidebar(true);
-      console.log("Chat successfully deleted!");
     } catch (error) {
       console.log(error);
     }
-    // Логика удаления переписки
-    console.log("data: " + data.user.uid);
-    console.log("currentUser: " + currentUser.uid);
   };
 
   const handleCancel = () => {

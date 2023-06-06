@@ -33,36 +33,39 @@ const Chats = ({ setIsOpenedSidebar }) => {
     dispatch({ type: "CHANGE_USER", payload: docData });
   };
 
+  console.log(chats);
+
   return (
     <div className={"flex flex-col gap-1"}>
-      {Object.entries(chats)
-        ?.sort((a, b) => b[1].date - a[1].date)
-        .map((chat) => (
-          <div
-            onClick={() => handleSelect(chat[1].userInfo)}
-            key={chat[0]}
-            className={`flex cursor-pointer items-center gap-4 
+      {chats &&
+        Object.entries(chats)
+          ?.sort((a, b) => b[1].date - a[1].date)
+          .map((chat) => (
+            <div
+              onClick={() => handleSelect(chat[1].userInfo)}
+              key={chat[0]}
+              className={`flex cursor-pointer items-center gap-4 
               rounded-[10px] bg-light p-[10px] transition-all hover:bg-lightHover dark:bg-dark dark:hover:bg-darkHover`}
-          >
-            <img
-              src={chat[1].userInfo.photoURL}
-              alt={"avatar"}
-              className={"h-[50px] w-[50px] rounded-full object-cover"}
-            />
-            <div className={"flex w-full items-end justify-between"}>
-              <div>
-                <span>{chat[1].userInfo.displayName}</span>
-                <p
-                  className={
-                    "max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lightText/75 dark:text-darkText/75"
-                  }
-                >
-                  {chat[1].lastMessage?.text}
-                </p>
+            >
+              <img
+                src={chat[1].userInfo.photoURL}
+                alt={"avatar"}
+                className={"h-[50px] w-[50px] rounded-full object-cover"}
+              />
+              <div className={"flex w-full items-end justify-between"}>
+                <div>
+                  <span>{chat[1].userInfo.displayName}</span>
+                  <p
+                    className={
+                      "max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lightText/75 dark:text-darkText/75"
+                    }
+                  >
+                    {chat[1].lastMessage?.text}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
     </div>
   );
 };

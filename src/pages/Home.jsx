@@ -14,9 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
-      console.log("Проверка почты");
       if (user && user.emailVerified) {
-        console.log("Почта подтверждена");
         setVerified(true);
       }
     });
