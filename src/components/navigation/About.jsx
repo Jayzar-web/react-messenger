@@ -50,7 +50,7 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div
             className={
-              "relative m-3 h-full max-h-[450px] min-h-[350px] w-full rounded-[10px] bg-light text-[10px] text-lightText sm:w-[75%] md:w-[55%] md:text-[16px] lg:w-[35%]"
+              "relative m-3 h-full max-h-[450px] min-h-[350px] w-full overflow-hidden rounded-[10px] bg-light text-[10px] text-lightText sm:w-[75%] md:w-[55%] md:text-[16px] lg:w-[35%]"
             }
           >
             <div className={"flex h-full w-full flex-col gap-3 sm:flex-row"}>
@@ -102,7 +102,7 @@ const About = ({ user, isShowAbout, setIsShowAbout }) => {
               </div>
               <div
                 className={
-                  "flex h-[50%] flex-col justify-between rounded-b-[10px] bg-lightPrimary p-3 sm:h-full sm:w-[40%] sm:rounded-r-[10px]"
+                  "flex h-[50%] flex-col justify-between bg-lightPrimary p-3 sm:h-full sm:w-[40%] "
                 }
               >
                 <h1 className={"text-2xl"}>Поддержка</h1>
