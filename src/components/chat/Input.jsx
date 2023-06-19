@@ -90,6 +90,7 @@ const Input = () => {
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
+    setIsOpenedEmoji(false);
     setText("");
     setImage(null);
   };
@@ -121,6 +122,7 @@ const Input = () => {
               <Picker
                 theme={theme}
                 data={emojiData}
+                // onClickOutside={() => setIsOpenedEmoji(false)}
                 onEmojiSelect={(emoji) => {
                   setText(text + emoji.native);
                 }}

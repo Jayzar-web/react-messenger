@@ -8,4 +8,14 @@
   @apply box-border;
 }
 
+em-emoji-picker {
+  width: 250px;
+  min-width: 250px;
+  overflow: auto;
+}
 
+@media (min-width: 640px) {
+  em-emoji-picker {
+    width: 350px;
+  }
+}

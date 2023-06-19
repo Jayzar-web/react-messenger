@@ -12,8 +12,6 @@ const ChatHeader = ({ setIsOpenedInfo, setIsOpenedSidebar }) => {
     setIsOpenedAbout(true);
   };
 
-  console.log(data.user);
-
   return (
     <>
       <div

@@ -33,8 +33,6 @@ const Chats = ({ setIsOpenedSidebar }) => {
     dispatch({ type: "CHANGE_USER", payload: docData });
   };
 
-  console.log(chats);
-
   return (
     <div className={"flex flex-col gap-1"}>
       {chats &&
