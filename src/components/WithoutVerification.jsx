@@ -1,9 +1,13 @@
 import { sendEmailVerification } from "@firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { ChatContext } from "../contexts/ChatContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const WithoutVerification = () => {
   const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
   const [timer, setTimer] = useState(60);
   const [isTimerActive, setIsTimerActive] = useState(false);
 
@@ -37,6 +41,11 @@ const WithoutVerification = () => {
     }
   }, [timer]);
 
+  function handleBack() {
+    signOut(auth);
+    data.user.uid = null;
+  }
+
   return (
     <div
       className={
@@ -52,6 +61,14 @@ const WithoutVerification = () => {
         }
       >
         {isTimerActive ? `${timer}` : `Отправить письмо`}
+      </button>
+      <button
+        onClick={handleBack}
+        className={
+          "w-44 cursor-pointer rounded-[10px] bg-lightHover p-2 transition-all disabled:cursor-default disabled:text-red-500 active:scale-95"
+        }
+      >
+        Вернуться
       </button>
       <p className={"text-[14px]"}>
         После подтверждения необходимо перезагрузить страницу
