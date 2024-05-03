@@ -17,11 +17,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLUX_MESSENGER_58C3E }}'
-
-          apiKey: '${{ secrets.VITE_FIREBASE_API_KEY }}'
-          messagingSenderId: '${{ secrets.VITE_FIREBASE_APP_ID }}'
-          appId: '${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}'
-          measurementId: '${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}'
-
           channelId: live
           projectId: flux-messenger-58c3e
