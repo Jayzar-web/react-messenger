@@ -15,6 +15,15 @@ const firebaseConfig = {
 };
 
 
+let values = Object.values(firebaseConfig)
+
+values.forEach(element => {
+  console.log(element)
+});
+
+
+console.log('1')
+
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
