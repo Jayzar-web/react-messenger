@@ -1,7 +1,5 @@
 <h1 align="center" id="title">Flux-messenger</h1>
 
-<p align="center"><img src="https://socialify.git.ci/Jayzar-web/react-messenger/image?font=Source%20Code%20Pro&amp;language=1&amp;name=1&amp;pattern=Plus&amp;theme=Dark" alt="project-image"></p>
-
 <p id="description">Diplomarbeit</p>
 
 <h2>🛠️ Installation Steps:</h2>
