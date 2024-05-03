@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FaTelegram } from "react-icons/all";
+import { FaTelegram } from "react-icons/fa";
+
 
 const TelegramLink = ({ username }) => {
   const telegram = `https://t.me/${username}`;
