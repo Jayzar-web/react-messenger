@@ -9,7 +9,7 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    steps:
+    steps:      
       - uses: actions/checkout@v3
       - run: npm install
       - run: npm run build
@@ -18,4 +18,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLUX_MESSENGER_58C3E }}'
           channelId: live
-          projectId: flux-messenger-58c3e
+          projectId: flux-messenger-58c3e 
+          

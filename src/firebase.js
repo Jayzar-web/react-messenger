@@ -5,24 +5,15 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: 'AIzaSyCA6sHBsI20c4C55tAeTDWCXbmbFVAjPFg',
   authDomain: 'flux-messenger-58c3e.firebaseapp.com',
   projectId: 'flux-messenger-58c3e',
   storageBucket: 'flux-messenger-58c3e.appspot.com',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  messagingSenderId: '435646473451',
+  appId: '1:435646473451:web:dd518a01401ce7831d0aae',
+  measurementId: 'G-BS8MHGP7G1',
 };
 
-
-let values = Object.values(firebaseConfig)
-
-values.forEach(element => {
-  console.log(element)
-});
-
-
-console.log('1')
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
